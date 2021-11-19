@@ -7,12 +7,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
     private RecyclerView mRecyclerView;
-    private ArrayList<Activity> mActivityList;
+    private ArrayList<ActivityItem> mActivityData;
     private ActivityAdapter mAdapter;
 
     @Override
@@ -21,8 +23,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mRecyclerView = findViewById(R.id.recyclerView);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mActivityList = new ArrayList<>();
-        mAdapter = new ActivityAdapter(this, mActivityList);
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager
+                (2, StaggeredGridLayoutManager.VERTICAL));
+        mActivityData = new ArrayList<>();
+        mAdapter = new ActivityAdapter(this, mActivityData);
+        mRecyclerView.setAdapter(mAdapter);
+
+        initializeData();
+    }
+
+    private void initializeData() {
+        String[] activityNames = getResources()
+                .getStringArray(R.array.activities_names);
     }
 }
